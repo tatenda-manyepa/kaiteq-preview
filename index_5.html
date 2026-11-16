@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAI-TEQ | JobDesk: never lose a job because you were on the job</title>
+<meta name="description" content="JobDesk by KAI-TEQ answers your WhatsApp, catches missed calls and books jobs into your diary while you get on with the work. Built for UK tradespeople.">
+<meta name="theme-color" content="#081629">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="KAI-TEQ">
+<meta property="og:title" content="JobDesk by KAI-TEQ | Never lose a job because you were on the job">
+<meta property="og:description" content="WhatsApp booking, missed-call text-back and a back office built for UK trades. Live in 48 hours.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230d213d'/%3E%3Cpath d='M12 10h17v16q0 9-9 9t-9-9h6q0 3 3 3t3-3V16H12' fill='%23ffd43b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Organization","name":"KAI-TEQ","description":"Operational intelligence and automation for UK tradespeople and service businesses.","email":"hello@kai-teq.com","areaServed":"GB"},
+ {"@type":"SoftwareApplication","name":"JobDesk","applicationCategory":"BusinessApplication","operatingSystem":"Web, iOS, Android",
+  "offers":[{"@type":"Offer","name":"JobDesk","price":"49","priceCurrency":"GBP"},{"@type":"Offer","name":"JobDesk Pro","price":"89","priceCurrency":"GBP"},{"@type":"Offer","name":"JobDesk Growth","price":"179","priceCurrency":"GBP"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Do I need to be good with technology?","acceptedAnswer":{"@type":"Answer","text":"No. Setup happens in a WhatsApp chat, and you can answer by voice note. If you can use WhatsApp, you can use JobDesk."}},
+  {"@type":"Question","name":"Is there a contract?","acceptedAnswer":{"@type":"Answer","text":"No. Plans are monthly rolling and you can cancel any time."}},
+  {"@type":"Question","name":"What if the assistant gets something wrong?","acceptedAnswer":{"@type":"Answer","text":"You stay in control. JobDesk only books inside the rules you set, and you can approve bookings before they're confirmed."}}
+ ]}
+]}
+</script>
+<style>
+:root{
+  --navy-900:#060f1f;--navy-800:#081629;--navy-700:#0d213d;--navy-600:#16304f;--navy-500:#21406a;
+  --gold:#ffd43b;--gold-deep:#f2b705;--gold-soft:#fff6cc;
+  --ink:#0d213d;--muted:#5d6b80;--line:#e3e8ef;--bg:#f4f6f9;--white:#fff;
+  --wa:#25d366;--wa-bubble:#dcf8c6;
+  --radius:22px;--shadow:0 30px 60px -25px rgba(6,15,31,.35);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;--body:Inter,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;font:17px/1.6 var(--body);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.wrap{width:min(1200px,92vw);margin:0 auto}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.025em;line-height:1.05;margin:0}
+h2{font-size:clamp(34px,4.6vw,58px);font-weight:700}
+h3{font-size:22px;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.eyebrow::before{content:"";width:22px;height:3px;border-radius:3px;background:var(--gold)}
+.dark .eyebrow{color:var(--gold)}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--muted);max-width:620px}
+.dark{background:var(--navy-800);color:#fff}
+.dark .lead{color:#a9b8cf}
+.section{padding:clamp(80px,10vw,140px) 0}
+.section-head{display:grid;gap:18px;margin-bottom:56px;max-width:760px}
+.center{text-align:center;margin-inline:auto;justify-items:center}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;padding:15px 16px 15px 26px;border-radius:999px;font-weight:700;font-size:16px;border:0;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,background .25s}
+.btn .arrow{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;transition:transform .3s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover .arrow{transform:rotate(-45deg)}
+.btn-gold{background:var(--gold);color:var(--navy-800);box-shadow:0 12px 30px -10px rgba(255,212,59,.6)}
+.btn-gold .arrow{background:var(--navy-800);color:var(--gold)}
+.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);padding-right:26px}
+.btn-navy{background:var(--navy-700);color:#fff}
+.btn-navy .arrow{background:var(--gold);color:var(--navy-800)}
+:focus-visible{outline:3px solid var(--gold-deep);outline-offset:3px;border-radius:8px}
+
+/* Nav */
+.nav{position:fixed;inset:16px 0 auto;z-index:50;transition:inset .3s}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 14px 12px 26px;border-radius:999px;background:rgba(8,22,41,.88);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(255,255,255,.1);color:#fff}
+.logo{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.04em;line-height:1}
+.logo b{color:var(--gold)}
+.logo small{display:block;font-family:var(--body);font-size:8.5px;letter-spacing:.2em;font-weight:600;color:#9fb0c8;margin-top:3px}
+.nav-links{display:flex;gap:30px;font-size:15px;font-weight:500;color:#c9d4e3}
+.nav-links a:hover{color:var(--gold)}
+.nav .btn{padding:10px 10px 10px 20px;font-size:14px}
+.nav .btn .arrow{width:28px;height:28px}
+.menu-btn{display:none;background:none;border:0;color:#fff;padding:8px}
+@media(max-width:900px){.nav-links{display:none}.nav-links.open{display:flex;position:absolute;top:76px;left:4vw;right:4vw;flex-direction:column;gap:6px;background:var(--navy-800);border-radius:22px;padding:18px;border:1px solid rgba(255,255,255,.1)}.nav-links.open a{padding:10px 12px}.menu-btn{display:block}.nav .btn-cta{display:none}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:radial-gradient(1200px 600px at 85% 10%,rgba(255,212,59,.13),transparent 60%),radial-gradient(900px 600px at 0% 100%,rgba(33,64,106,.8),transparent 60%),var(--navy-800);color:#fff;padding:170px 0 110px}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 70%);pointer-events:none}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}
+.hero h1{font-size:clamp(44px,5.8vw,84px);font-weight:800;letter-spacing:-.045em;line-height:.98;margin:22px 0 26px}
+.hero h1 .hl{color:var(--gold);position:relative;white-space:nowrap}
+.hero h1 .hl svg{position:absolute;left:0;bottom:-.12em;width:100%;height:.28em}
+.hero h1 .hl path{stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.2s .9s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero .lead{color:#b8c6da;font-size:clamp(18px,1.6vw,21px)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin:38px 0 34px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#d3ddea;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(255,212,59,.18)}
+.word{display:inline-block;opacity:0;transform:translateY(.5em);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* Phone (iPhone style) */
+.phone-stage{position:relative;justify-self:center;perspective:1600px}
+.phone{position:relative;width:330px;height:676px;border-radius:56px;padding:11px;background:linear-gradient(145deg,#8e9096,#4a4c52 30%,#2a2b2f 55%,#6f7177 85%,#3a3b3f);box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 70px 120px -40px rgba(0,0,0,.85),0 30px 60px -30px rgba(0,0,0,.6);transform:rotateY(-8deg) rotateX(3deg);transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.phone:hover{transform:rotateY(-3deg) rotateX(1deg)}
+.phone::after{content:"";position:absolute;inset:4px;border-radius:52px;border:1px solid rgba(255,255,255,.08);pointer-events:none}
+.island{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:104px;height:31px;border-radius:20px;background:#000;z-index:5}
+.screen{position:relative;height:100%;border-radius:46px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(180deg,#ececf1 0%,#dcdce2 100%);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Inter,sans-serif;color:#000}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:20px 30px 0 34px;height:52px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.statusbar .icons{display:flex;gap:6px;align-items:center}
+.ios-head{display:flex;align-items:center;gap:10px;padding:8px 12px 10px;background:rgba(246,246,248,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:.5px solid rgba(60,60,67,.18)}
+.ios-back{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.85);display:grid;place-items:center;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.ios-av{width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy-800);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:16px}
+.ios-name{flex:1;min-width:0;line-height:1.15}
+.ios-name b{display:block;font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ios-name small{font-size:11.5px;color:#8a8a8e}
+.ios-actions{display:flex;gap:13px;padding:8px 11px;flex:none;border-radius:999px;background:rgba(255,255,255,.85);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.chat{flex:1;padding:14px 12px 10px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;overflow:hidden}
+.day{align-self:center;font-size:11px;font-weight:600;color:#8a8a8e;background:rgba(255,255,255,.7);padding:3px 10px;border-radius:8px;margin-bottom:4px}
+.msg{flex:none;max-width:80%;padding:8px 12px 6px;border-radius:18px;font-size:13.5px;line-height:1.38;letter-spacing:-.005em;opacity:0;transform:translateY(8px) scale(.98);transition:opacity .45s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1)}
+.msg.show{opacity:1;transform:none}
+.msg time{display:block;text-align:right;font-size:10px;margin-top:2px;opacity:.55}
+.msg.in{align-self:flex-start;background:#fff;color:#000;border-bottom-left-radius:6px;box-shadow:0 1px .5px rgba(0,0,0,.08)}
+.msg.out{align-self:flex-end;background:#3a3a3c;color:#f5f5f7;border-bottom-right-radius:6px}
+.msg.booked{background:#fff;color:#000;border-bottom-right-radius:6px;box-shadow:0 1px .5px rgba(0,0,0,.08),inset 3px 0 0 var(--gold-deep)}
+.msg.booked strong{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7a5b00;font-weight:700;margin-bottom:2px}
+.typing{align-self:flex-end;background:#3a3a3c;border-radius:18px;border-bottom-right-radius:6px;padding:11px 14px;display:none;gap:4px}
+.typing.show{display:flex}
+.typing span{width:6px;height:6px;border-radius:50%;background:#c7c7cc;animation:blink 1.1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.ios-input{display:flex;align-items:center;gap:8px;padding:8px 12px 26px}
+.ios-circle{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.85);display:grid;place-items:center;flex:none;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.ios-field{flex:1;height:36px;border-radius:999px;background:rgba(255,255,255,.85);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.ios-mic{background:#3a3a3c}
+.home-bar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:120px;height:5px;border-radius:5px;background:#1c1c1e}
+
+
+.toast{position:absolute;right:-40px;top:64px;width:260px;background:#fff;color:var(--ink);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;opacity:0;transform:translateY(20px);transition:all .5s cubic-bezier(.2,.7,.2,1);z-index:4}
+.toast.show{opacity:1;transform:none}
+.toast .ic{width:40px;height:40px;border-radius:12px;background:var(--navy-700);color:var(--gold);display:grid;place-items:center;flex:none}
+.toast b{font-size:14px;display:block}.toast small{font-size:12.5px;color:var(--muted)}
+.float-tag{position:absolute;z-index:5;left:-70px;top:150px;background:var(--gold);color:var(--navy-800);font-weight:700;font-size:13px;padding:10px 14px;border-radius:14px;box-shadow:var(--shadow);transform:rotate(-4deg)}
+@media(max-width:1000px){.hero{padding:130px 0 80px}.hero-grid{grid-template-columns:1fr}.phone-stage{margin-top:20px}.float-tag{left:-10px}.toast{right:-10px}.phone{transform:none}}
+@media(max-width:440px){.phone{width:296px;height:606px}.toast{width:230px}}
+
+/* Trades marquee */
+.marquee{background:var(--gold);color:var(--navy-800);overflow:hidden;padding:18px 0;font-family:var(--display);font-weight:700;font-size:22px}
+.marquee-track{display:flex;gap:48px;width:max-content;animation:scroll 38s linear infinite}
+.marquee span{display:inline-flex;align-items:center;gap:48px;white-space:nowrap}
+.marquee span::after{content:"✦";font-size:14px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Problem + calculator */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch}
+.stat-list{display:grid;gap:18px;margin-top:36px}
+.stat{display:flex;gap:16px;align-items:flex-start;padding:20px;border-radius:18px;background:#fff;border:1px solid var(--line)}
+.stat .n{font-family:var(--display);font-size:30px;font-weight:800;color:var(--navy-700);min-width:56px;line-height:1}
+.stat p{color:var(--muted);font-size:15.5px}
+.calc{background:var(--navy-700);color:#fff;border-radius:28px;padding:40px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.calc::before{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,212,59,.25),transparent 70%)}
+.calc h3{font-size:26px;margin-bottom:6px}
+.calc>p{color:#a9b8cf;font-size:15px;margin-bottom:28px}
+.field{margin-bottom:22px}
+.field label{display:flex;justify-content:space-between;font-size:14.5px;font-weight:600;margin-bottom:10px;color:#d6e0ee}
+.field output{color:var(--gold);font-weight:700}
+input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--gold) var(--p,30%),rgba(255,255,255,.15) var(--p,30%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:5px solid var(--gold);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:5px solid var(--gold);cursor:pointer}
+.result{margin-top:30px;padding:24px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.result small{font-size:13px;color:#a9b8cf;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.result .big{font-family:var(--display);font-size:clamp(44px,5vw,64px);font-weight:800;color:var(--gold);line-height:1.05;margin:6px 0}
+.result p{font-size:15px;color:#d6e0ee}
+@media(max-width:900px){.calc-grid{grid-template-columns:1fr}}
+
+/* How it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+.step{position:relative;padding:34px 30px 30px;border-radius:var(--radius);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:background .3s,transform .3s}
+.step:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--display);font-size:72px;font-weight:800;line-height:1;background:linear-gradient(180deg,var(--gold),rgba(255,212,59,.15));-webkit-background-clip:text;background-clip:text;color:transparent;display:block;margin-bottom:22px}
+.step h3{margin-bottom:10px}
+.step p{color:#a9b8cf;font-size:15.5px}
+.principle{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;color:#a9b8cf;font-size:15px}
+.principle strong{color:#fff}
+@media(max-width:900px){.steps{grid-template-columns:1fr}}
+
+/* Journey (sticky stack) */
+.journey{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
+.journey-intro{position:sticky;top:130px}
+.journey-intro .lead{margin:20px 0 30px}
+.stack{display:grid;gap:22px}
+.jcard{position:sticky;top:120px;background:#fff;border:1px solid var(--line);border-radius:26px;padding:32px;display:grid;grid-template-columns:auto 1fr;gap:22px;box-shadow:0 20px 40px -30px rgba(6,15,31,.4);min-height:220px}
+.jcard:nth-child(2){top:136px}.jcard:nth-child(3){top:152px}.jcard:nth-child(4){top:168px}.jcard:nth-child(5){top:184px}.jcard:nth-child(6){top:200px}
+.jicon{width:58px;height:58px;border-radius:18px;background:var(--navy-700);color:var(--gold);display:grid;place-items:center}
+.jstage{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.jcard h3{font-size:28px;margin:4px 0 10px}
+.jcard p{color:var(--muted);font-size:15.5px}
+.tier-tag{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--gold-soft);color:#7a5b00}
+.tier-tag.base{background:#e8eef7;color:var(--navy-600)}
+@media(max-width:900px){.journey{grid-template-columns:1fr}.journey-intro{position:static}.jcard{position:relative;top:auto!important}}
+
+/* App showcase */
+.app-frame{border-radius:26px;background:var(--navy-700);padding:10px;box-shadow:0 60px 100px -40px rgba(0,0,0,.6);max-width:1080px;margin:0 auto}
+.app{display:grid;grid-template-columns:200px 1fr;border-radius:18px;overflow:hidden;background:#f3f5f8;color:var(--ink);min-height:470px;font-size:14px}
+.app-side{background:var(--navy-700);color:#b9c6d8;padding:22px 14px;display:grid;align-content:start;gap:4px}
+.app-brand{font-family:var(--display);font-weight:800;font-size:22px;color:#fff;padding:0 10px 18px}
+.app-brand b{color:var(--gold)}
+.app-side span{padding:9px 12px;border-radius:9px;font-weight:500}
+.app-side span.on{background:var(--gold);color:var(--navy-700);font-weight:700}
+.app-main{padding:24px 26px;display:grid;gap:16px;align-content:start}
+.app-head{display:flex;justify-content:space-between;align-items:center}
+.app-head h4{font-family:var(--display);font-size:24px;margin:0}
+.app-head small{color:var(--muted)}
+.qc{background:var(--gold);color:var(--navy-700);font-weight:700;padding:9px 14px;border-radius:10px;font-size:13px}
+.app-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.tile.navy{background:linear-gradient(135deg,var(--navy-700),var(--navy-500));color:#fff;border:0}
+.tile .k{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.tile.navy .k{color:#9fb0c8}
+.tile .v{font-family:var(--display);font-size:34px;font-weight:800;margin-top:4px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
+.row:first-of-type{border-top:0}
+.pill{font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;background:#e8f7ee;color:#167a3e;white-space:nowrap}
+.pill.amber{background:var(--gold-soft);color:#7a5b00}
+.pill.red{background:#fdeceb;color:#b42318}
+.app-note{text-align:center;color:#a9b8cf;font-size:14px;margin-top:22px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.app-side{display:none}.app-cols{grid-template-columns:1fr}}
+
+/* AI team */
+.agents{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.agent{border-radius:28px;padding:36px;background:#fff;border:1px solid var(--line);display:grid;gap:18px;align-content:start;transition:transform .3s,box-shadow .3s}
+.agent:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.agent-top{display:flex;align-items:center;gap:16px}
+.badge{width:62px;height:62px;border-radius:20px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:22px;background:var(--navy-700);color:var(--gold)}
+.agent h3{font-size:30px}
+.agent .role{font-size:14px;color:var(--muted);font-weight:600}
+.agent ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.agent li{display:flex;gap:10px;font-size:15.5px;color:#334155}
+.agent li::before{content:"";flex:none;width:18px;height:18px;margin-top:4px;border-radius:6px;background:var(--gold-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%23b38600' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.bubble{background:var(--wa-bubble);border-radius:16px;border-top-left-radius:4px;padding:14px 16px;font-size:14.5px;color:#1d2b1d;position:relative}
+.bubble small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#3f6b3f;margin-bottom:4px}
+.brief{margin-top:24px;border-radius:28px;padding:30px 36px;background:var(--navy-700);color:#fff;display:flex;gap:26px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brief p{color:#a9b8cf;max-width:640px}
+.brief h3{font-size:26px;margin-bottom:6px}
+@media(max-width:900px){.agents{grid-template-columns:1fr}}
+
+/* Pricing */
+.founding{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--gold);color:var(--navy-800);border-radius:22px;padding:22px 28px;margin-bottom:28px}
+.founding b{font-family:var(--display);font-size:22px}
+.founding p{font-size:15px;opacity:.85}
+.spots{display:flex;gap:6px}
+.spots i{width:14px;height:14px;border-radius:4px;background:var(--navy-800)}
+.spots i.taken{opacity:.22}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.plan{position:relative;background:#fff;border:1px solid var(--line);border-radius:28px;padding:34px 30px;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.plan:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.plan.pop{background:var(--navy-700);color:#fff;border:0;box-shadow:var(--shadow)}
+.plan .tag{position:absolute;top:-14px;left:30px;background:var(--gold);color:var(--navy-800);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.plan .promise{font-size:15px;color:var(--muted);margin-top:6px}
+.plan.pop .promise{color:#a9b8cf}
+.price{margin:26px 0 4px;display:flex;align-items:baseline;gap:6px}
+.price b{font-family:var(--display);font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.price span{color:var(--muted);font-weight:600}
+.plan.pop .price span{color:#a9b8cf}
+.setup{font-size:14px;color:var(--muted);padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.plan.pop .setup{color:#a9b8cf;border-color:rgba(255,255,255,.12)}
+.plan ul{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:11px;font-size:15px}
+.plan li{display:flex;gap:10px}
+.plan li::before{content:"✓";color:var(--gold-deep);font-weight:800}
+.plan.pop li::before{color:var(--gold)}
+.plan li.head{font-weight:700}
+.plan li.head::before{content:"+";}
+.plan .btn{margin-top:auto;justify-content:space-between}
+.plan:not(.pop) .btn{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.plan:not(.pop) .btn .arrow{background:var(--navy-700);color:var(--gold)}
+.price-notes{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:center;margin-top:30px;color:var(--muted);font-size:14.5px}
+.price-notes span::before{content:"●";color:var(--gold-deep);margin-right:8px;font-size:10px;vertical-align:2px}
+@media(max-width:980px){.plans{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
+
+/* Guarantee */
+.guarantee{display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:center;padding:36px 40px;border-radius:28px;background:#fff;border:2px dashed #e8d48a}
+.seal{width:110px;height:110px;border-radius:50%;background:var(--navy-700);color:var(--gold);display:grid;place-items:center;text-align:center;font-family:var(--display);font-weight:800;line-height:1;font-size:15px;box-shadow:0 0 0 8px var(--gold-soft)}
+.seal b{display:block;font-size:38px}
+.guarantee h3{font-size:28px;margin-bottom:8px}
+.guarantee p{color:var(--muted)}
+@media(max-width:800px){.guarantee{grid-template-columns:1fr;text-align:center;justify-items:center}}
+
+/* FAQ */
+.faq{max-width:860px;margin:0 auto;display:grid;gap:12px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:0 24px;transition:box-shadow .3s}
+.faq details[open]{box-shadow:0 20px 40px -30px rgba(6,15,31,.4)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 0;font-weight:700;font-size:17.5px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--bg);font-size:20px;transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg);background:var(--gold)}
+.faq details p{padding:0 0 22px;color:var(--muted)}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:start}
+.contact-points{display:grid;gap:16px;margin-top:34px}
+.cp{display:flex;gap:14px;align-items:center;color:#d6e0ee}
+.cp .ic{width:44px;height:44px;border-radius:14px;background:rgba(255,212,59,.12);color:var(--gold);display:grid;place-items:center;flex:none}
+form.card{background:#fff;color:var(--ink);border-radius:28px;padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:16px;box-shadow:var(--shadow)}
+.f{display:grid;gap:7px}.f.full{grid-column:1/-1}
+.f label{font-size:14px;font-weight:600}
+.f input,.f select,.f textarea{width:100%;padding:13px 15px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);transition:border .2s,background .2s}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--gold-deep);background:#fff}
+.f textarea{min-height:110px;resize:vertical}
+.form-foot{grid-column:1/-1;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.form-foot small{color:var(--muted);font-size:13px}
+.form-status{grid-column:1/-1;font-size:15px;font-weight:600;display:none;padding:14px 16px;border-radius:12px}
+.form-status.ok{display:block;background:#e8f7ee;color:#167a3e}
+.form-status.err{display:block;background:#fdeceb;color:#b42318}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr}form.card{grid-template-columns:1fr}}
+
+/* Final CTA + footer */
+.final{position:relative;overflow:hidden;text-align:center;padding:120px 0;background:radial-gradient(700px 300px at 50% 0%,rgba(255,212,59,.18),transparent 70%),var(--navy-900);color:#fff}
+.final h2{font-size:clamp(40px,6vw,80px);font-weight:800;max-width:900px;margin:0 auto 22px}
+.final h2 em{font-style:normal;color:var(--gold)}
+.final .lead{margin:0 auto 36px}
+footer{background:var(--navy-900);color:#8fa1ba;border-top:1px solid rgba(255,255,255,.08);padding:56px 0 34px;font-size:14.5px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+footer h5{color:#fff;font-size:14px;margin:0 0 14px;letter-spacing:.04em}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+footer a:hover{color:var(--gold)}
+.foot-base{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:44px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);font-size:13px}
+@media(max-width:800px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.word,.msg{opacity:1!important;transform:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="top">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo" aria-label="KAI-TEQ home">KAI-TE<b>Q</b><small>OPERATIONAL INTELLIGENCE &amp; AUTOMATION</small></a>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#jobdesk">JobDesk</a>
+      <a href="#ai-team">AI team</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#contact" class="btn btn-gold btn-cta">Become a founding customer <span class="arrow" aria-hidden="true">→</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">JobDesk by KAI-TEQ · Built for UK trades</span>
+      <h1 aria-label="Never lose a job because you were on the job.">
+        <span class="word" style="animation-delay:.05s">Never</span> <span class="word" style="animation-delay:.12s">lose</span> <span class="word" style="animation-delay:.19s">a</span> <span class="word" style="animation-delay:.26s">job</span> <span class="word" style="animation-delay:.33s">because</span> <span class="word" style="animation-delay:.4s">you</span> <span class="word" style="animation-delay:.47s">were</span>
+        <span class="word hl" style="animation-delay:.54s">on the job.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15 C 80 4, 200 4, 297 12" fill="none" stroke="#ffd43b" stroke-width="5" stroke-linecap="round"/></svg></span>
+      </h1>
+      <p class="lead">JobDesk answers your WhatsApp, texts back the calls you miss and books jobs straight into your diary, while you get on with the work.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-gold">Become a founding customer <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="#how" class="btn btn-ghost">See how it works</a>
+      </div>
+      <div class="chips">
+        <span class="chip"><i></i>Live in 48 hours</span>
+        <span class="chip"><i></i>No contracts</span>
+        <span class="chip"><i></i>You approve every booking</span>
+      </div>
+    </div>
+
+    <div class="phone-stage" aria-label="Example WhatsApp conversation where JobDesk books a job">
+      <div class="float-tag">Replied in 4 seconds</div>
+      <div class="phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="statusbar"><span>9:41</span><span class="icons">
+            <svg width="18" height="11" viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round"><path d="M1 4a10 10 0 0 1 14 0M3.5 6.6a6.5 6.5 0 0 1 9 0M6 9.1a3 3 0 0 1 4 0"/></svg>
+            <svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.5" fill="none" stroke="#000" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/><rect x="23.5" y="4" width="1.8" height="4" rx=".9" opacity=".4"/></svg>
+          </span></div>
+          <div class="ios-head">
+            <span class="ios-back"><svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L2 8l6 6"/></svg></span>
+            <span class="ios-av">D</span>
+            <span class="ios-name"><b>Dave's Plumbing</b><small>Business account</small></span>
+            <span class="ios-actions">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>
+            </span>
+          </div>
+          <div class="chat" id="chat">
+            <span class="day">Today</span>
+            <div class="msg in">Hi, my kitchen tap's been leaking since yesterday. Could someone come out this week?<time>18:42</time></div>
+            <div class="msg out">Hi Sarah, sorry to hear that. I can book that in for you. What's your postcode?<time>18:42</time></div>
+            <div class="msg in">LS6 2AB<time>18:43</time></div>
+            <div class="msg out">Thank you. Dave can do <b>Thursday 10am</b> or <b>Friday 2pm</b>. Which suits you best?<time>18:43</time></div>
+            <div class="msg in">Thursday please<time>18:43</time></div>
+            <div class="msg out booked"><strong>Confirmed</strong>Thursday 10:00 · Leaking kitchen tap · LS6. We'll send a reminder the day before.<time>18:43</time></div>
+            <div class="typing" id="typing"><span></span><span></span><span></span></div>
+          </div>
+          <div class="ios-input">
+            <span class="ios-circle"><svg width="16" height="16" viewBox="0 0 16 16" stroke="#000" stroke-width="1.6" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></span>
+            <span class="ios-field"></span>
+            <span class="ios-circle"><svg width="18" height="16" viewBox="0 0 24 20" fill="none" stroke="#000" stroke-width="1.6" stroke-linejoin="round"><path d="M2 6a2 2 0 0 1 2-2h3l2-3h6l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/><circle cx="12" cy="11" r="4"/></svg></span>
+            <span class="ios-circle ios-mic"><svg width="12" height="17" viewBox="0 0 12 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="1" width="6" height="10" rx="3"/><path d="M1 8a5 5 0 0 0 10 0M6 13v4"/></svg></span>
+          </div>
+          <span class="home-bar"></span>
+        </div>
+      </div>
+      <div class="toast" id="toast">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>
+        <div><b>New job booked · £65</b><small>Thu 10:00 · Sarah, LS6. Added to your diary</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADES MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Plumbers</span><span>Electricians</span><span>Handymen</span><span>Heating engineers</span><span>Cleaners</span><span>Locksmiths</span><span>Decorators</span><span>Gardeners</span><span>Van hire</span><span>Mobile beauty</span>
+    <span>Plumbers</span><span>Electricians</span><span>Handymen</span><span>Heating engineers</span><span>Cleaners</span><span>Locksmiths</span><span>Decorators</span><span>Gardeners</span><span>Van hire</span><span>Mobile beauty</span>
+  </div>
+</div>
+
+<!-- PROBLEM + CALCULATOR -->
+<section class="section" id="problem">
+  <div class="wrap calc-grid">
+    <div class="reveal">
+      <span class="eyebrow">The problem</span>
+      <h2 style="margin:18px 0 20px">Every missed call is a job someone else gets.</h2>
+      <p class="lead">You can't answer the phone up a ladder, under a sink or behind the wheel. Customers don't leave voicemails. They ring the next number on the list.</p>
+      <div class="stat-list">
+        <div class="stat"><span class="n">01</span><p><strong style="color:var(--ink)">Calls go unanswered while you work.</strong> By the time you ring back that evening, they've already booked someone else.</p></div>
+        <div class="stat"><span class="n">02</span><p><strong style="color:var(--ink)">WhatsApps pile up.</strong> Back-and-forth about times, prices and addresses eats your evenings.</p></div>
+        <div class="stat"><span class="n">03</span><p><strong style="color:var(--ink)">Admin never stops.</strong> Quotes, invoices and chasing payments all happen after a full day's work.</p></div>
+      </div>
+    </div>
+
+    <div class="calc reveal d2" id="calculator">
+      <h3>What are missed calls costing you?</h3>
+      <p>Move the sliders to match your week.</p>
+      <div class="field"><label for="calls">Calls or messages you miss each week <output id="callsOut">5</output></label><input type="range" id="calls" min="1" max="30" value="5"></div>
+      <div class="field"><label for="value">Average job value <output id="valueOut">£150</output></label><input type="range" id="value" min="40" max="1000" step="10" value="150"></div>
+      <div class="field"><label for="conv">How many of those would have booked <output id="convOut">40%</output></label><input type="range" id="conv" min="10" max="90" step="5" value="40"></div>
+      <div class="result" aria-live="polite">
+        <small>Work you could be losing each month</small>
+        <div class="big" id="lost">£1,299</div>
+        <p id="compare">JobDesk is £49 a month. That's about <strong>26×</strong> less than what's slipping away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section dark" id="how">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>Your phone keeps working, even when you can't.</h2>
+      <p class="lead">JobDesk sits on your WhatsApp and your phone line. It handles the back-and-forth and hands you a booked job.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>A customer gets in touch</h3><p>They WhatsApp you, or call while you're busy. A missed call gets an instant text back, so they're not left waiting.</p></div>
+      <div class="step reveal d1"><h3>JobDesk sorts the details</h3><p>It asks what the job is, where it is and when suits them, then offers real slots from your diary using your own rules and prices.</p></div>
+      <div class="step reveal d2"><h3>The job lands in your diary</h3><p>You get a tidy job card on your phone. Approve it with one tap, or let JobDesk confirm automatically once you trust it.</p></div>
+    </div>
+    <p class="principle reveal"><strong>You stay in charge.</strong> JobDesk only books inside the hours, areas and prices you set.</p>
+  </div>
+</section>
+
+<!-- JOURNEY / MODULES -->
+<section class="section" id="jobdesk">
+  <div class="wrap journey">
+    <div class="journey-intro reveal">
+      <span class="eyebrow">From enquiry to paid</span>
+      <h2 style="margin-top:18px">One app for the whole life of a job.</h2>
+      <p class="lead">Start with JobDesk for bookings. Add quotes, payments, reviews and social posts when you're ready, all from WhatsApp.</p>
+      <a href="#pricing" class="btn btn-navy">Compare plans <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+    <div class="stack">
+      <article class="jcard">
+        <div class="jicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+        <div><span class="jstage">01 · Enquiry &amp; booking</span><h3>JobDesk</h3><p>WhatsApp booking assistant, missed-call text-back and a clear diary for your day, with a website that takes bookings built in.</p><span class="tier-tag base">Every plan</span></div>
+      </article>
+      <article class="jcard">
+        <div class="jicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-8 8"/></svg></div>
+        <div><span class="jstage">02 · Quote</span><h3>JobQuote</h3><p>Customers send photos on WhatsApp. JobDesk drafts the quote from your prices, and you approve it with one tap. Quotes go out the same day.</p><span class="tier-tag">Pro &amp; Growth</span></div>
+      </article>
+      <article class="jcard">
+        <div class="jicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div>
+        <div><span class="jstage">03 · Get paid</span><h3>JobPay</h3><p>Deposits at booking, payment links when the job's done, and polite automatic chasing, so you never have the awkward conversation.</p><span class="tier-tag">Pro &amp; Growth</span></div>
+      </article>
+      <article class="jcard">
+        <div class="jicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></div>
+        <div><span class="jstage">04 · Reputation</span><h3>JobReviews</h3><p>A friendly Google review request after every finished job. More reviews mean more local enquiries.</p><span class="tier-tag">Pro &amp; Growth</span></div>
+      </article>
+      <article class="jcard">
+        <div class="jicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+        <div><span class="jstage">05 · Show your work</span><h3>JobShow</h3><p>Send a before-and-after photo and JobShow turns it into a post for Facebook, Instagram and Google. Real work, posted for you.</p><span class="tier-tag">Pro &amp; Growth</span></div>
+      </article>
+      <article class="jcard">
+        <div class="jicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg></div>
+        <div><span class="jstage">06 · Know your numbers</span><h3>JobBrief</h3><p>Every Monday on WhatsApp: jobs booked, money in and who still owes you. Your week, in one message.</p><span class="tier-tag">Pro &amp; Growth</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- APP SHOWCASE -->
+<section class="section dark" id="app">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">The JobDesk app</span>
+      <h2>Your whole day on one screen.</h2>
+      <p class="lead">Today's jobs, what needs your attention and who's waiting for a reply. It works on your phone, tablet or laptop.</p>
+    </div>
+    <div class="app-frame reveal">
+      <div class="app" role="img" aria-label="JobDesk app showing today's schedule, items needing attention and customers awaiting a reply">
+        <div class="app-side">
+          <div class="app-brand">job<b>desk</b></div>
+          <span class="on">Today</span><span>Inbox</span><span>Jobs</span><span>Calendar</span><span>Money</span><span>Customers</span>
+        </div>
+        <div class="app-main">
+          <div class="app-head"><div><h4>Today</h4><small>Thursday · 3 jobs booked</small></div><span class="qc">+ Quick capture</span></div>
+          <div class="app-cols">
+            <div class="tile navy"><div class="k">Today's schedule</div><div class="v" data-count="3">3</div><div style="color:#c9d4e3;font-size:13px">jobs · <b style="color:var(--gold)">£240</b> total value</div></div>
+            <div class="tile"><div class="k">Paid this month</div><div class="v">£<span data-count="2840">2,840</span></div><div style="color:var(--muted);font-size:13px">of £3,000 target</div></div>
+            <div class="tile"><div class="k">Owed to you</div><div class="v">£<span data-count="185">185</span></div><div style="color:var(--muted);font-size:13px">2 invoices · chasing on</div></div>
+          </div>
+          <div class="app-cols">
+            <div class="tile" style="grid-column:span 2">
+              <div class="k" style="margin-bottom:6px">Schedule</div>
+              <div class="row"><span><b>10:00</b> · Sarah J. · Leaking kitchen tap · LS6</span><span class="pill">Confirmed</span></div>
+              <div class="row"><span><b>14:00</b> · James W. · Replace front door lock</span><span class="pill">Deposit paid</span></div>
+              <div class="row"><span><b>18:00</b> · Alex M. · Van collection</span><span class="pill amber">Reminder sent</span></div>
+            </div>
+            <div class="tile">
+              <div class="k" style="margin-bottom:6px">Needs attention</div>
+              <div class="row"><span>Quote for Emma D.</span><span class="pill amber">Approve</span></div>
+              <div class="row"><span>Mrs Patel · 2 hrs</span><span class="pill red">Reply</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="app-note reveal">Example data shown.</p>
+  </div>
+</section>
+
+<!-- AI TEAM -->
+<section class="section" id="ai-team">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">JobDesk Growth</span>
+      <h2>Meet your AI management team.</h2>
+      <p class="lead">Two AI assistants that study how your business really runs, then tell you what to do next in plain English, on WhatsApp.</p>
+    </div>
+    <div class="agents">
+      <article class="agent reveal">
+        <div class="agent-top"><div class="badge">G</div><div><h3>The Gaffer</h3><div class="role">Your AI business manager</div></div></div>
+        <ul>
+          <li>Spots quiet days and slow-converting quotes</li>
+          <li>Reminds you which customers are due repeat work</li>
+          <li>Tells you when it's time to raise your prices</li>
+          <li>Answers "How was last month?" whenever you ask</li>
+        </ul>
+        <div class="bubble"><small>The Gaffer</small>Tuesdays have been empty three weeks running. 14 customers are due a boiler service. Want me to offer them Tuesday slots?</div>
+      </article>
+      <article class="agent reveal d1">
+        <div class="agent-top"><div class="badge">£</div><div><h3>The Books</h3><div class="role">Your AI finance assistant</div></div></div>
+        <ul>
+          <li>Cash-flow forecast for the next few weeks</li>
+          <li>Profit per job, so you know what's worth taking</li>
+          <li>VAT threshold watch and tax-pot reminders</li>
+          <li>Tidy exports for your accountant</li>
+        </ul>
+        <div class="bubble"><small>The Books</small>Jobs under £80 are making you £9 an hour once travel's counted. Consider a minimum call-out charge of £85.</div>
+      </article>
+    </div>
+    <div class="brief reveal">
+      <div><h3>Plus a real person in your corner.</h3><p>Growth includes a quarterly review with the KAI-TEQ team, a monthly Growth Clinic, and a check-in from us if your assistants spot something serious.</p></div>
+      <a href="#pricing" class="btn btn-gold">See Growth <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:var(--muted)">The Books gives business management information, not regulated financial or tax advice. For those, talk to your accountant.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing" style="background:#eaeef4">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Simple pricing</span>
+      <h2>Clear prices. No contracts.</h2>
+      <p class="lead">Every plan includes your website, hosting and setup over WhatsApp. Upgrade or cancel whenever you like.</p>
+    </div>
+
+    <div class="founding reveal">
+      <div><b>Founding customers wanted: 10 places</b><p>Get reduced setup and launch pricing in return for honest feedback and a short case study.</p></div>
+      <div class="spots" aria-label="10 founding places available"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+
+    <div class="plans">
+      <article class="plan reveal">
+        <h3>JobDesk</h3>
+        <p class="promise">Stop losing jobs.</p>
+        <div class="price"><b>£49</b><span>/month</span></div>
+        <div class="setup">+ £199 one-off setup</div>
+        <ul>
+          <li>WhatsApp booking assistant</li>
+          <li>Missed-call text-back</li>
+          <li>JobDesk app and diary</li>
+          <li>One-page trade website with booking</li>
+          <li>Business email and hosting</li>
+          <li>Set up over WhatsApp</li>
+        </ul>
+        <a href="#contact" class="btn" data-plan="JobDesk">Choose JobDesk <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+      <article class="plan pop reveal d1">
+        <span class="tag">Most popular</span>
+        <h3>JobDesk Pro</h3>
+        <p class="promise">Win more work and get paid faster.</p>
+        <div class="price"><b>£89</b><span>/month</span></div>
+        <div class="setup">+ £299 one-off setup</div>
+        <ul>
+          <li class="head">Everything in JobDesk</li>
+          <li>JobQuote: photo-to-quote</li>
+          <li>JobPay: deposits, payments, chasing</li>
+          <li>JobReviews: Google review requests</li>
+          <li>JobShow: up to 8 posts a month</li>
+          <li>JobBrief: your Monday summary</li>
+          <li>Multi-page website</li>
+        </ul>
+        <a href="#contact" class="btn btn-gold" data-plan="JobDesk Pro">Choose Pro <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+      <article class="plan reveal d2">
+        <h3>JobDesk Growth</h3>
+        <p class="promise">Run it like a proper business.</p>
+        <div class="price"><b>£179</b><span>/month</span></div>
+        <div class="setup">+ £399 one-off setup</div>
+        <ul>
+          <li class="head">Everything in Pro</li>
+          <li>The Gaffer: AI business manager</li>
+          <li>The Books: AI finance assistant</li>
+          <li>Weekly priorities in your Monday Brief</li>
+          <li>Accounting and bank connections</li>
+          <li>Quarterly review with a real person</li>
+          <li>Monthly Growth Clinic</li>
+        </ul>
+        <a href="#contact" class="btn" data-plan="JobDesk Growth">Choose Growth <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+    </div>
+    <div class="price-notes reveal">
+      <span>Monthly rolling, cancel any time</span>
+      <span>Setup fee waived on annual plans</span>
+      <span>Need something bespoke? <a href="#contact" style="text-decoration:underline">Ask about custom solutions</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="section" style="padding-top:0;background:#eaeef4">
+  <div class="wrap">
+    <div class="guarantee reveal">
+      <div class="seal"><div><b>30</b>DAYS</div></div>
+      <div><h3>No booked job in 30 days? Next month's on us.</h3><p>If JobDesk doesn't book you a job in your first 30 days, you don't pay for month two. That's how sure we are.</p></div>
+      <a href="#contact" class="btn btn-navy">Get started <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Good questions, straight answers.</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Do I need to be good with technology?</summary><p>No. Setup happens in a WhatsApp chat, and you can answer by voice note. If you can use WhatsApp, you can use JobDesk.</p></details>
+      <details><summary>Do I need a new phone number?</summary><p>No. You keep your number. Missed calls are forwarded so JobDesk can text the caller back, and WhatsApp runs on a business account we help you set up.</p></details>
+      <details><summary>What if the assistant gets something wrong?</summary><p>You stay in control. JobDesk only offers times, areas and prices you've set, and you can approve every booking before it's confirmed. Once you trust it, you can let it confirm automatically.</p></details>
+      <details><summary>I already have a website. Can I keep it?</summary><p>Yes. We can add JobDesk booking and the WhatsApp button to your existing site, or you can use the website included in your plan.</p></details>
+      <details><summary>Is there a contract?</summary><p>No. Plans are monthly rolling. Upgrade, downgrade or cancel whenever you like.</p></details>
+      <details><summary>How long does setup take?</summary><p>Most businesses are live within 48 hours. You answer a few questions on WhatsApp, approve your website preview, connect your accounts, and you're ready.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section dark" id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Let's talk</span>
+      <h2 style="margin:18px 0 20px">Tell us what's slowing you down.</h2>
+      <p class="lead">Leave your details and we'll come back to you within one working day, by WhatsApp or email, whichever you prefer.</p>
+      <div class="contact-points">
+        <div class="cp"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><a href="mailto:hello@kai-teq.com">hello@kai-teq.com</a></div>
+        <div class="cp"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg></span>Reply within one working day</div>
+        <div class="cp"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></span>Your details are only used to reply to you. <a href="privacy.html" style="text-decoration:underline">Privacy notice</a></div>
+      </div>
+    </div>
+    <form class="card reveal d1" id="enquiry" novalidate>
+      <div class="f"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required></div>
+      <div class="f"><label for="business">Business name</label><input id="business" name="business" autocomplete="organization"></div>
+      <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+      <div class="f"><label for="phone">Mobile (for WhatsApp)</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+      <div class="f"><label for="trade">Your trade</label><input id="trade" name="trade" placeholder="e.g. Plumber, Electrician, Handyman"></div>
+      <div class="f"><label for="plan">Interested in</label>
+        <select id="plan" name="plan">
+          <option>Founding customer place</option><option>JobDesk</option><option>JobDesk Pro</option><option>JobDesk Growth</option><option>Custom solution</option><option>Not sure yet</option>
+        </select></div>
+      <div class="f full"><label for="message">Anything else we should know?</label><textarea id="message" name="message" placeholder="e.g. I miss loads of calls when I'm on site"></textarea></div>
+      <div class="form-status" id="formStatus" role="status"></div>
+      <div class="form-foot"><small>We'll never share your details.</small><button type="submit" class="btn btn-gold">Send enquiry <span class="arrow" aria-hidden="true">→</span></button></div>
+    </form>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap">
+    <h2 class="reveal">You do the work. <em>JobDesk</em> does the rest.</h2>
+    <p class="lead reveal">Join our first 10 founding customers and help shape JobDesk.</p>
+    <a href="#contact" class="btn btn-gold reveal">Become a founding customer <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="logo" style="color:#fff">KAI-TE<b>Q</b><small>OPERATIONAL INTELLIGENCE &amp; AUTOMATION</small></div><p style="margin-top:18px;max-width:300px">Less admin. More business. Built for people, powered by technology.</p></div>
+      <div><h5>JobDesk</h5><ul><li><a href="#how">How it works</a></li><li><a href="#jobdesk">Features</a></li><li><a href="#ai-team">AI team</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#contact">Contact</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Custom solutions</a></li></ul></div>
+      <div><h5>Legal</h5><ul><li><a href="privacy.html">Privacy notice</a></li><li><a href="mailto:hello@kai-teq.com">hello@kai-teq.com</a></li></ul></div>
+    </div>
+    <div class="foot-base"><span>© <span id="yr">2026</span> KAI-TEQ. All rights reserved.</span><a href="#top">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<script>
+/* ===== Settings =====
+   Paste your form endpoint here (e.g. from Formspree or Tally) so enquiries arrive in your inbox.
+   Example: const FORM_ENDPOINT = "https://formspree.io/f/abcdwxyz";
+   If left empty, the form opens a pre-filled email to hello@kai-teq.com instead. */
+const FORM_ENDPOINT = "";
+const CONTACT_EMAIL = "hello@kai-teq.com";
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Mobile menu */
+const menuBtn = document.getElementById('menuBtn'), links = document.getElementById('navLinks');
+menuBtn.addEventListener('click', () => { const o = links.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); });
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); }));
+
+/* Scroll reveal */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .14 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* Count-up numbers */
+const cio = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; cio.unobserve(e.target);
+  const el = e.target, end = +el.dataset.count; if (reduce) return;
+  const t0 = performance.now(), d = 1400;
+  (function tick(t){ const p = Math.min(1,(t-t0)/d), v = Math.round(end*(1-Math.pow(1-p,3))); el.textContent = v.toLocaleString('en-GB'); if (p<1) requestAnimationFrame(tick); })(t0);
+}), { threshold: .6 });
+document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+
+/* Hero WhatsApp conversation */
+(function chat(){
+  const msgs = [...document.querySelectorAll('#chat .msg')], typing = document.getElementById('typing'), toast = document.getElementById('toast');
+  if (reduce) { msgs.forEach(m => m.classList.add('show')); toast.classList.add('show'); return; }
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  async function run(){
+    while (true) {
+      msgs.forEach(m => m.classList.remove('show')); toast.classList.remove('show');
+      await wait(700);
+      for (const m of msgs) {
+        if (m.classList.contains('out')) { typing.classList.add('show'); m.before(typing); await wait(900); typing.classList.remove('show'); }
+        m.classList.add('show'); await wait(m.classList.contains('out') ? 1100 : 1300);
+      }
+      await wait(400); toast.classList.add('show');
+      await wait(5200);
+    }
+  }
+  run();
+})();
+
+/* Missed-call calculator */
+(function calc(){
+  const c = document.getElementById('calls'), v = document.getElementById('value'), k = document.getElementById('conv');
+  const fmt = n => '£' + Math.round(n).toLocaleString('en-GB');
+  function upd(){
+    [c,v,k].forEach(r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'));
+    document.getElementById('callsOut').textContent = c.value;
+    document.getElementById('valueOut').textContent = fmt(v.value);
+    document.getElementById('convOut').textContent = k.value + '%';
+    const lost = c.value * 4.33 * (k.value/100) * v.value;
+    document.getElementById('lost').textContent = fmt(lost);
+    const x = Math.max(1, Math.round(lost / 49));
+    document.getElementById('compare').innerHTML = `JobDesk is £49 a month. That's about <strong>${x}×</strong> less than what's slipping away.`;
+  }
+  [c,v,k].forEach(r => r.addEventListener('input', upd)); upd();
+})();
+
+/* Plan buttons preselect the form */
+document.querySelectorAll('[data-plan]').forEach(b => b.addEventListener('click', () => { document.getElementById('plan').value = b.dataset.plan; }));
+
+/* Enquiry form */
+document.getElementById('enquiry').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, s = document.getElementById('formStatus');
+  s.className = 'form-status';
+  if (!f.name.value.trim() || !/^\S+@\S+\.\S+$/.test(f.email.value)) {
+    s.textContent = 'Please add your name and a valid email address.'; s.classList.add('err'); return;
+  }
+  const data = new FormData(f);
+  if (FORM_ENDPOINT) {
+    try {
+      const r = await fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      if (!r.ok) throw 0;
+      f.reset(); s.textContent = 'Thanks! Your enquiry is in. We\'ll be in touch within one working day.'; s.classList.add('ok');
+    } catch { s.textContent = 'Sorry, something went wrong. Please email ' + CONTACT_EMAIL + '.'; s.classList.add('err'); }
+  } else {
+    const body = [...data.entries()].map(([k,v]) => `${k}: ${v}`).join('\n');
+    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('JobDesk enquiry: ' + f.plan.value)}&body=${encodeURIComponent(body)}`;
+    s.innerHTML = `Almost there: please <a href="${href}" style="text-decoration:underline">email your enquiry</a> to <strong>${CONTACT_EMAIL}</strong> and we'll be in touch within one working day.`; s.classList.add('ok');
+  }
+});
+</script>
+</body>
+</html>
