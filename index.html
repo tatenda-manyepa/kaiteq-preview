@@ -624,6 +624,7 @@ footer{background:var(--navy-700)}
 @media(max-width:900px){.slide.has-video .shade{background:linear-gradient(0deg,rgba(13,33,61,.92),rgba(13,33,61,.6) 60%,rgba(13,33,61,.45))}}
 .bg-video{object-position:100% 0%}
 @media(max-width:900px){.bg-video{object-position:68% 0%}}
+.portrait video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;z-index:1}
 </style>
 <script>
 /* Always start at the top on refresh (unless a link points to a section, e.g. #pricing) */
@@ -659,7 +660,7 @@ if (!location.hash) { window.scrollTo(0, 0); addEventListener('load', () => wind
   <div class="slides">
     <article class="slide active" data-slide="1" aria-roledescription="slide" aria-label="1 of 3">
       <div class="scene s1" aria-hidden="true"><i class="beam b1"></i><i class="beam b2"></i><i class="beam b3"></i><i class="glow"></i></div>
-      <video class="bg-video" muted loop playsinline preload="auto" poster="assets/hero-1b.jpg" aria-hidden="true"><source src="assets/hero-1b.mp4" type="video/mp4"></video>
+      <video class="bg-video" muted playsinline preload="auto" poster="assets/hero-1b.jpg" aria-hidden="true"><source src="assets/hero-1b.mp4" type="video/mp4"></video>
       <div class="shade" aria-hidden="true"></div>
       <div class="wrap slide-content">
         <span class="eyebrow">6:42pm · On the job</span>
@@ -670,7 +671,7 @@ if (!location.hash) { window.scrollTo(0, 0); addEventListener('load', () => wind
     </article>
     <article class="slide" data-slide="2" aria-roledescription="slide" aria-label="2 of 3">
       <div class="scene s2" aria-hidden="true"><i class="beam b1"></i><i class="beam b2"></i><i class="beam b3"></i><i class="glow"></i></div>
-      <video class="bg-video" muted loop playsinline preload="none" poster="assets/hero-2.jpg" aria-hidden="true"><source src="assets/hero-2.mp4" type="video/mp4"></video>
+      <video class="bg-video" muted playsinline preload="none" poster="assets/hero-2.jpg" aria-hidden="true"><source src="assets/hero-2.mp4" type="video/mp4"></video>
       <div class="shade" aria-hidden="true"></div>
       <div class="wrap slide-content">
         <span class="eyebrow">7:30pm · Job done</span>
@@ -681,7 +682,7 @@ if (!location.hash) { window.scrollTo(0, 0); addEventListener('load', () => wind
     </article>
     <article class="slide" data-slide="3" aria-roledescription="slide" aria-label="3 of 3">
       <div class="scene s3" aria-hidden="true"><i class="beam b1"></i><i class="beam b2"></i><i class="beam b3"></i><i class="glow"></i></div>
-      <video class="bg-video" muted loop playsinline preload="none" poster="assets/hero-3.jpg" aria-hidden="true"><source src="assets/hero-3.mp4" type="video/mp4"></video>
+      <video class="bg-video" muted playsinline preload="none" poster="assets/hero-3.jpg" aria-hidden="true"><source src="assets/hero-3.mp4" type="video/mp4"></video>
       <div class="shade" aria-hidden="true"></div>
       <div class="wrap slide-content">
         <span class="eyebrow">Monday 8am · The plan</span>
@@ -931,7 +932,7 @@ if (!location.hash) { window.scrollTo(0, 0); addEventListener('load', () => wind
     </div>
     <div class="agents">
       <article class="agent reveal">
-        <figure class="portrait gaffer"><img src="assets/the-gaffer.png" alt="Frank, The Gaffer, a British bulldog in a flat cap and hi-vis holding a clipboard" loading="lazy" onerror="this.remove()"><span class="pf-mono" aria-hidden="true">G</span><figcaption>Frank · The growth guy</figcaption></figure>
+        <figure class="portrait gaffer"><video class="portrait-video" muted loop playsinline preload="none" poster="assets/the-gaffer.jpg" aria-label="Frank, The Gaffer, a British bulldog in a flat cap and hi-vis holding a clipboard"><source src="assets/the-gaffer.mp4" type="video/mp4"></video><span class="pf-mono" aria-hidden="true">G</span><figcaption>Frank · The growth guy</figcaption></figure>
         <div class="agent-top"><div><h3>The Gaffer</h3><div class="role">Frank, your growth guy. Steady, straight-talking, and always looking for your next busy week.</div></div></div>
         <ul>
           <li>Spots quiet days and slow-converting quotes</li>
@@ -942,7 +943,7 @@ if (!location.hash) { window.scrollTo(0, 0); addEventListener('load', () => wind
         <div class="bubble"><small>The Gaffer</small>Tuesdays have been empty three weeks running. 14 customers are due a boiler service. Want me to offer them Tuesday slots?</div>
       </article>
       <article class="agent reveal d1">
-        <figure class="portrait books"><img src="assets/the-books.png" alt="Penny, The Books, a female owl in reading glasses and a waistcoat holding a ledger" loading="lazy" onerror="this.remove()"><span class="pf-mono" aria-hidden="true">£</span><figcaption>Penny · The money whizz</figcaption></figure>
+        <figure class="portrait books"><video class="portrait-video" muted loop playsinline preload="none" poster="assets/the-books.jpg" aria-label="Penny, The Books, a female owl in reading glasses and a waistcoat holding a ledger"><source src="assets/the-books.mp4" type="video/mp4"></video><span class="pf-mono" aria-hidden="true">£</span><figcaption>Penny · The money whizz</figcaption></figure>
         <div class="agent-top"><div><h3>The Books</h3><div class="role">Penny, your money whizz. Sharp-eyed, never misses a penny, and always looking for ways to help your business make more.</div></div></div>
         <ul>
           <li>Cash-flow forecast for the next few weeks</li>
@@ -1276,26 +1277,67 @@ document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
   addEventListener('keydown',e=>{ if(e.key==='Escape'&&!m.hidden) close(); });
 })();
 
-/* Hero slider with background videos */
+/* Hero slider: each slide plays its video once from the start, then crossfades to the next */
 (function(){
   const hero = document.querySelector('.hero'), slides = [...hero.querySelectorAll('.slide')], dots = [...hero.querySelectorAll('.dot')];
-  const DUR = 8000; hero.style.setProperty('--dur', DUR/1000 + 's');
-  let i = 0, timer;
-  slides.forEach(sl => { const v = sl.querySelector('video'); v.addEventListener('loadeddata', () => { v.classList.add('ready'); sl.classList.add('has-video'); }); v.querySelector('source').addEventListener('error', () => v.remove()); });
-  function play(sl){ const v = sl.querySelector('video'); if (!v) return; if (v.preload === 'none') { v.preload = 'auto'; v.load(); } if (!reduce) v.play().catch(()=>{}); }
+  const N = slides.length, FALLBACK = 8000, FADE = 1200;
+  let i = -1, timer, guard;
+  const vid = sl => sl.querySelector('video');
+  slides.forEach(sl => { const v = vid(sl); if (!v) return;
+    v.addEventListener('loadeddata', () => { v.classList.add('ready'); sl.classList.add('has-video'); });
+    v.querySelector('source').addEventListener('error', () => v.remove());
+    v.addEventListener('ended', () => { if (slides[i] === sl) next(); });
+  });
+  function warm(sl){ const v = vid(sl); if (v && v.preload === 'none') { v.preload = 'auto'; v.load(); } }
+  function setBar(ms){
+    dots.forEach((d,k) => { d.classList.remove('active'); d.classList.toggle('done', k < i); });
+    hero.style.setProperty('--dur', (ms/1000) + 's');
+    void dots[i].offsetWidth; dots[i].classList.add('active');
+  }
+  function next(){ go(i + 1); }
   function go(n){
-    slides[i].classList.remove('active'); const old = slides[i].querySelector('video'); if (old) old.pause();
-    dots.forEach((d,k) => { d.classList.remove('active'); d.classList.toggle('done', k < n); });
-    i = (n + slides.length) % slides.length;
-    slides[i].classList.add('active'); void dots[i].offsetWidth; dots[i].classList.add('active'); play(slides[i]);
-    clearTimeout(timer); if (!reduce) timer = setTimeout(() => go(i + 1), DUR);
+    clearTimeout(timer); clearTimeout(guard);
+    const prev = i >= 0 ? slides[i] : null;
+    i = (n + N) % N;
+    const sl = slides[i], v = vid(sl);
+    if (prev && prev !== sl) { prev.classList.remove('active'); const pv = vid(prev); if (pv) setTimeout(() => { if (!prev.classList.contains('active')) pv.pause(); }, FADE); }
+    sl.classList.add('active');
+    warm(slides[(i + 1) % N]);                         // load the next video before it's needed
+    if (reduce) { setBar(FALLBACK); return; }
+    if (v) {
+      warm(sl);
+      const start = () => {
+        const ms = isFinite(v.duration) && v.duration > 0 ? v.duration * 1000 : FALLBACK;
+        setBar(ms);
+        clearTimeout(guard); guard = setTimeout(next, ms + 1500);   // safety net if 'ended' never fires
+      };
+      try { v.currentTime = 0; } catch (e) {}
+      v.play().catch(() => { clearTimeout(timer); timer = setTimeout(next, FALLBACK); });
+      if (v.readyState >= 1) start(); else v.addEventListener('loadedmetadata', start, { once: true });
+    } else {
+      setBar(FALLBACK); timer = setTimeout(next, FALLBACK);
+    }
   }
   hero.querySelector('.next').onclick = () => go(i + 1);
   hero.querySelector('.prev').onclick = () => go(i - 1);
   dots.forEach((d,k) => d.onclick = () => go(k));
   let x0 = null; hero.addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
   hero.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1)); x0 = null; });
+  // pause when the tab is hidden, restart the current slide cleanly when it comes back
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { clearTimeout(timer); clearTimeout(guard); const v = vid(slides[i]); if (v) v.pause(); }
+    else go(i);
+  });
   go(0);
+})();
+
+/* Frank & Penny living portraits: play only while on screen */
+(function(){
+  const vs = document.querySelectorAll('.portrait-video'); if (!vs.length || reduce) return;
+  const o = new IntersectionObserver(es => es.forEach(e => { const v = e.target;
+    if (e.isIntersecting) { if (v.preload === 'none') { v.preload = 'auto'; v.load(); } v.play().catch(()=>{}); } else v.pause();
+  }), { threshold: .25 });
+  vs.forEach(v => o.observe(v));
 })();
 
 /* Missed-call calculator: auto-plays 5 → 30 missed calls, then hands over to the visitor */
