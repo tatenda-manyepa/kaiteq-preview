@@ -252,7 +252,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .jcard p{color:var(--muted);font-size:15.5px}
 .tier-tag{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--gold-soft);color:#7a5b00}
 .tier-tag.base{background:#e8eef7;color:var(--navy-600)}
-@media(max-width:900px){.journey{grid-template-columns:1fr}.journey-intro{position:static}.jcard{position:relative;top:auto!important}}
+@media(max-width:900px){.journey{grid-template-columns:1fr}.journey-intro{position:static}.jcard{min-height:0;padding:24px;gap:16px}.jcard:nth-child(1){top:96px}.jcard:nth-child(2){top:108px}.jcard:nth-child(3){top:120px}.jcard:nth-child(4){top:132px}.jcard:nth-child(5){top:144px}.jcard:nth-child(6){top:156px}.jcard h3{font-size:24px}.jicon{width:48px;height:48px;border-radius:14px}}
 
 /* App showcase */
 .app-frame{border-radius:26px;background:var(--navy-700);padding:10px;box-shadow:0 60px 100px -40px rgba(0,0,0,.6);max-width:1080px;margin:0 auto}
@@ -509,6 +509,27 @@ footer{background:var(--navy-700)}
 .glass-pill .gp-ic.jo-av{overflow:visible}
 .glass-pill .gp-ic.jo-av img{border-radius:50%}
 .cp-av.jo-av{border-radius:50%}
+
+/* ===== Phone & tablet polish ===== */
+.dot{position:relative}
+.dot::before{content:"";position:absolute;inset:-14px -4px}
+@media(max-width:900px){.hero .slide-content{width:auto;margin:0 24px}}
+@media(max-width:600px){
+  .jcard{grid-template-columns:1fr;gap:12px;padding:22px}
+  .glass-pill{padding:6px;gap:0;border-radius:50%}
+  .glass-pill > span:not(.gp-ic){display:none}
+  .glass-pill .gp-ic{width:52px;height:52px}
+  .hero .slide-content{margin:0 20px}
+  .hero-ctas .btn{padding:13px 14px 13px 22px;font-size:15px}
+}
+@media(min-width:700px) and (max-width:900px){.agents{grid-template-columns:1fr 1fr}.agent{padding:24px}.agent h3{font-size:24px}}
+.stack .jcard{background:rgba(255,255,255,.94)!important}
+
+.per-year{margin:-2px 0 8px;color:var(--gold)!important;font-weight:600}
+.calc-replay{margin-top:18px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer}
+.calc-replay:hover{background:rgba(255,255,255,.16)}
+.calc.autoplay #calls::-webkit-slider-thumb{box-shadow:0 0 0 8px rgba(255,212,59,.25)}
+.calc.autoplay #calls::-moz-range-thumb{box-shadow:0 0 0 8px rgba(255,212,59,.25)}
 </style>
 </head>
 <body>
@@ -564,7 +585,7 @@ footer{background:var(--navy-700)}
       <div class="wrap slide-content">
         <span class="eyebrow">Monday 8am · The plan</span>
         <h2 class="slide-title">Meet The Gaffer <span class="soft">and The Books.</span></h2>
-        <p class="lead">One spots the quiet Tuesdays. The other spots the jobs that aren't worth the petrol. Your growth guy and your money guy report back every Monday, in plain English.</p>
+        <p class="lead">One spots the quiet Tuesdays. The other spots the jobs that aren't worth the petrol. Your growth guy and your money whizz report back every Monday, in plain English.</p>
         <div class="hero-ctas"><a href="#ai-team" class="btn btn-gold">Meet the team <span class="arrow" aria-hidden="true">→</span></a><a href="#contact" class="btn btn-ghost">Talk to us</a></div>
       </div>
     </article>
@@ -658,15 +679,17 @@ footer{background:var(--navy-700)}
 
     <div class="calc reveal d2" id="calculator">
       <h3>What are missed calls costing you?</h3>
-      <p>Move the sliders to match your week.</p>
+      <p id="calcHint">Watch what missed calls add up to, or drag the sliders to match your week.</p>
       <div class="field"><label for="calls">Calls or messages you miss each week <output id="callsOut">5</output></label><input type="range" id="calls" min="1" max="30" value="5"></div>
       <div class="field"><label for="value">Average job value <output id="valueOut">£150</output></label><input type="range" id="value" min="40" max="1000" step="10" value="150"></div>
       <div class="field"><label for="conv">How many of those would have booked <output id="convOut">40%</output></label><input type="range" id="conv" min="10" max="90" step="5" value="40"></div>
-      <div class="result" aria-live="polite">
+      <div class="result" id="calcResult">
         <small>Work you could be losing each month</small>
         <div class="big" id="lost">£1,299</div>
+        <p class="per-year" id="perYear">That's about <b>£15,588</b> a year.</p>
         <p id="compare">JobDesk is £49 a month. That's about <strong>26×</strong> less than what's slipping away.</p>
       </div>
+      <button type="button" class="calc-replay" id="calcReplay" hidden>↻ Replay</button>
     </div>
   </div>
 </section>
@@ -692,7 +715,7 @@ footer{background:var(--navy-700)}
 <section class="section" id="jobdesk">
   <div class="wrap journey">
     <div class="journey-intro reveal">
-      <span class="eyebrow">7:30pm · Job done</span>
+      <span class="eyebrow">From enquiry to paid</span>
       <h2 style="margin-top:18px">One app for the whole life of a job.</h2>
       <p class="lead">Start with JobDesk for bookings. Add quotes, payments, reviews and social posts when you're ready, all from WhatsApp.</p>
       <a href="#pricing" class="btn btn-navy">Compare plans <span class="arrow" aria-hidden="true">→</span></a>
@@ -777,8 +800,8 @@ footer{background:var(--navy-700)}
     </div>
     <div class="agents">
       <article class="agent reveal">
-        <figure class="portrait gaffer"><img src="assets/the-gaffer.png" alt="The Gaffer, a British bulldog in a flat cap and hi-vis holding a clipboard" loading="lazy" onerror="this.remove()"><span class="pf-mono" aria-hidden="true">G</span><figcaption>Bulldog · The growth guy</figcaption></figure>
-        <div class="agent-top"><div><h3>The Gaffer</h3><div class="role">Your growth guy. Steady, straight-talking, and always looking for your next busy week.</div></div></div>
+        <figure class="portrait gaffer"><img src="assets/the-gaffer.png" alt="Frank, The Gaffer, a British bulldog in a flat cap and hi-vis holding a clipboard" loading="lazy" onerror="this.remove()"><span class="pf-mono" aria-hidden="true">G</span><figcaption>Frank · The growth guy</figcaption></figure>
+        <div class="agent-top"><div><h3>The Gaffer</h3><div class="role">Frank, your growth guy. Steady, straight-talking, and always looking for your next busy week.</div></div></div>
         <ul>
           <li>Spots quiet days and slow-converting quotes</li>
           <li>Reminds you which customers are due repeat work</li>
@@ -788,8 +811,8 @@ footer{background:var(--navy-700)}
         <div class="bubble"><small>The Gaffer</small>Tuesdays have been empty three weeks running. 14 customers are due a boiler service. Want me to offer them Tuesday slots?</div>
       </article>
       <article class="agent reveal d1">
-        <figure class="portrait books"><img src="assets/the-books.png" alt="The Books, an owl in reading glasses and a waistcoat holding a ledger" loading="lazy" onerror="this.remove()"><span class="pf-mono" aria-hidden="true">£</span><figcaption>Owl · The money guy</figcaption></figure>
-        <div class="agent-top"><div><h3>The Books</h3><div class="role">Your money guy. Sharp-eyed, never misses a penny, and always looking for ways to help your business make more.</div></div></div>
+        <figure class="portrait books"><img src="assets/the-books.png" alt="Penny, The Books, a female owl in reading glasses and a waistcoat holding a ledger" loading="lazy" onerror="this.remove()"><span class="pf-mono" aria-hidden="true">£</span><figcaption>Penny · The money whizz</figcaption></figure>
+        <div class="agent-top"><div><h3>The Books</h3><div class="role">Penny, your money whizz. Sharp-eyed, never misses a penny, and always looking for ways to help your business make more.</div></div></div>
         <ul>
           <li>Cash-flow forecast for the next few weeks</li>
           <li>Profit per job, so you know what's worth taking</li>
@@ -862,7 +885,7 @@ footer{background:var(--navy-700)}
         <ul>
           <li class="head">Everything in Pro</li>
           <li>The Gaffer: your AI growth guy</li>
-          <li>The Books: your AI money guy</li>
+          <li>The Books: your AI money whizz</li>
           <li>Weekly priorities in your Monday Brief</li>
           <li>Accounting and bank connections</li>
           <li>Quarterly review with a real person</li>
@@ -1039,7 +1062,7 @@ document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
     setup: "Most businesses are live within 48 hours. You answer a few questions on WhatsApp (voice notes are fine), approve your website preview, connect your accounts and you're away.",
     number: "You keep your own number. Missed calls are forwarded so JobDesk can text the caller back, and we help you set up a WhatsApp Business account.",
     website: "Every plan includes a website that takes bookings. JobDesk gets a one-page site; Pro and Growth get a multi-page site with service pages, reviews and a gallery of your work. Already have a site? We can add JobDesk booking to it.",
-    team: "The Gaffer is your growth guy: he spots quiet days, slow quotes, repeat work that's due and when to raise your prices. The Books is your money guy: he watches cash flow and profit per job, flags VAT and tax-pot reminders, and spots ways to make more from your work. They come with JobDesk Growth. <a href='#ai-team' data-close>Meet them</a>",
+    team: "The Gaffer (Frank) is your growth guy: he spots quiet days, slow quotes, repeat work that's due and when to raise your prices. The Books (Penny) is your money whizz: she watches cash flow and profit per job, flags VAT and tax-pot reminders, and spots ways to make more from your work. They come with JobDesk Growth. <a href='#ai-team' data-close>Meet them</a>",
     trades: "JobDesk is built for anyone who books their time: plumbers, electricians, decorators, cleaners, mobile hairdressers, dog groomers, van hire and more.",
     founding: "We're taking on 10 founding customers, with reduced setup and launch pricing in return for honest feedback and a short case study. <a href='#contact' data-close>Grab a place</a>",
     wrong: "You stay in charge. JobDesk only offers the times, areas and prices you've set, and you can approve every booking before it's confirmed.",
@@ -1113,21 +1136,61 @@ document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
   go(0);
 })();
 
-/* Missed-call calculator */
+/* Missed-call calculator: auto-plays 5 → 30 missed calls, then hands over to the visitor */
 (function calc(){
   const c = document.getElementById('calls'), v = document.getElementById('value'), k = document.getElementById('conv');
+  const box = document.getElementById('calculator'), res = document.getElementById('calcResult'), replay = document.getElementById('calcReplay'), hint = document.getElementById('calcHint');
   const fmt = n => '£' + Math.round(n).toLocaleString('en-GB');
-  function upd(){
-    [c,v,k].forEach(r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'));
-    document.getElementById('callsOut').textContent = c.value;
+  let shownLost = 0, raf, timer, playing = false;
+  function setFill(r){ r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%'); }
+  function render(animate, tgt){
+    [c,v,k].forEach(setFill);
+    document.getElementById('callsOut').textContent = Math.round(c.value);
     document.getElementById('valueOut').textContent = fmt(v.value);
     document.getElementById('convOut').textContent = k.value + '%';
-    const lost = c.value * 4.33 * (k.value/100) * v.value;
-    document.getElementById('lost').textContent = fmt(lost);
-    const x = Math.max(1, Math.round(lost / 49));
-    document.getElementById('compare').innerHTML = `JobDesk is £49 a month. That's about <strong>${x}×</strong> less than what's slipping away.`;
+    const target = tgt ? tgt[0]*4.33*(tgt[2]/100)*tgt[1] : Math.round(c.value) * 4.33 * (k.value/100) * v.value;
+    const from = shownLost; cancelAnimationFrame(raf);
+    const draw = val => {
+      document.getElementById('lost').textContent = fmt(val);
+      document.getElementById('perYear').innerHTML = `That's about <b>${fmt(val*12)}</b> a year.`;
+      document.getElementById('compare').innerHTML = `JobDesk is £49 a month. That's about <strong>${Math.max(1, Math.round(val/49))}×</strong> less than what's slipping away.`;
+    };
+    if (!animate || reduce) { shownLost = target; draw(target); return; }
+    const t0 = performance.now(), d = 700;
+    (function tick(t){ const p = Math.min(1,(t-t0)/d), e = 1-Math.pow(1-p,3); shownLost = from + (target-from)*e; draw(shownLost); if (p<1) raf = requestAnimationFrame(tick); })(t0);
   }
-  [c,v,k].forEach(r => r.addEventListener('input', upd)); upd();
+  function glideAll(to){
+    const rs=[c,v,k], from = rs.map(r => +r.value), t0 = performance.now(), d = 650;
+    (function step(t){ if (!playing) return; const p = Math.min(1,(t-t0)/d), e = p<.5 ? 2*p*p : 1-Math.pow(-2*p+2,2)/2;
+      rs.forEach((r,i) => { r.value = from[i] + (to[i]-from[i])*e; setFill(r); });
+      document.getElementById('callsOut').textContent = Math.round(c.value);
+      document.getElementById('valueOut').textContent = fmt(Math.round(v.value/10)*10);
+      document.getElementById('convOut').textContent = Math.round(k.value/5)*5 + '%';
+      if (p<1) requestAnimationFrame(step); })(t0);
+    render(true, to);
+  }
+  // [missed calls, average job value, % that would have booked]
+  const STEPS = [[5,120,30],[10,140,35],[15,160,35],[20,180,40],[25,190,40],[30,200,45]];
+  function play(){
+    stop(); playing = true; replay.hidden = true; res.removeAttribute('aria-live'); box.classList.add('autoplay');
+    [c.value, v.value, k.value] = STEPS[0]; shownLost = 0; render(true, STEPS[0]);
+    let n = 0;
+    timer = setInterval(() => {
+      n++;
+      if (n >= STEPS.length) { stop(); replay.hidden = false; hint.textContent = 'Now try your own numbers: drag any slider.'; return; }
+      glideAll(STEPS[n]);
+    }, 1500);
+  }
+  function stop(){ playing = false; clearInterval(timer); box.classList.remove('autoplay'); res.setAttribute('aria-live','polite'); }
+  [c,v,k].forEach(r => {
+    r.addEventListener('pointerdown', () => { if (playing){ stop(); replay.hidden = false; } });
+    r.addEventListener('keydown', () => { if (playing){ stop(); replay.hidden = false; } });
+    r.addEventListener('input', () => { if (playing){ stop(); replay.hidden = false; } render(false); });
+  });
+  replay.addEventListener('click', play);
+  render(false);
+  if (reduce) { replay.hidden = false; return; }
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); setTimeout(play, 500); } }, { threshold: .5 }).observe(box);
 })();
 
 /* Plan buttons preselect the form */
