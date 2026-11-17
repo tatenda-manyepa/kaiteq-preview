@@ -540,6 +540,15 @@ footer{background:var(--navy-700)}
 .product-mark small{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:#6b7a90;margin-top:6px;font-weight:600}
 @media(max-width:1100px){.brand-lockup .logo small{display:none}}
 @media(max-width:600px){.brand-lockup{gap:12px}.brand-lockup .logo{font-size:22px}.pm-name{font-size:19px}.lockup-divider{height:28px}.product-mark small{font-size:8px;letter-spacing:.16em}}
+.nav-links a.nav-product{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--navy-700);padding:4px 12px;margin:-4px 0;border-radius:999px;background:rgba(255,212,59,.14);line-height:1.2}
+.nav-links a.nav-product b{color:#e8b700;font-weight:800}
+.nav-links a.nav-product:hover{background:rgba(255,212,59,.28);text-decoration:none}
+.mobile-product{display:none}
+.nav-product.mobile-product{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;color:var(--navy-700);padding:5px 12px;border-radius:999px;background:rgba(255,212,59,.18);line-height:1.2;text-decoration:none}
+.nav-product.mobile-product b{color:#e8b700;font-weight:800}
+@media(max-width:900px){.mobile-product{display:inline-block;margin-left:auto;margin-right:6px}.nav-links.open .nav-product{display:none}}
+@media(max-width:360px){.nav-product.mobile-product{font-size:15px;padding:4px 10px}}
+@media(max-width:900px){.nav-links.open{background:#fff!important;backdrop-filter:none;box-shadow:0 30px 60px -25px rgba(13,33,61,.35)}}
 </style>
 </head>
 <body>
@@ -547,19 +556,16 @@ footer{background:var(--navy-700)}
 <!-- NAV -->
 <header class="nav" id="top">
   <div class="wrap nav-inner">
-    <a href="#top" class="brand-lockup" aria-label="JobDesk by KAI-TEQ, home">
-      <span class="logo">KAI-TE<b>Q</b><small>OPERATIONAL INTELLIGENCE &amp; AUTOMATION</small></span>
-      <span class="lockup-divider" aria-hidden="true"></span>
-      <span class="product-mark"><span class="pm-name">job<b>desk</b></span></span>
-    </a>
+    <a href="#top" class="logo" aria-label="KAI-TEQ home">KAI-TE<b>Q</b><small>OPERATIONAL INTELLIGENCE &amp; AUTOMATION</small></a>
     <nav class="nav-links" id="navLinks" aria-label="Main">
       <a href="#how">How it works</a>
-      <a href="#jobdesk">JobDesk</a>
+      <a href="#jobdesk" class="nav-product" aria-label="JobDesk">job<b>desk</b></a>
       <a href="#ai-team">AI team</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
     <a href="#contact" class="btn btn-gold btn-cta">Become a founding customer <span class="arrow" aria-hidden="true">→</span></a>
+    <a href="#jobdesk" class="nav-product mobile-product" aria-label="JobDesk">job<b>desk</b></a>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
     </button>
