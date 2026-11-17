@@ -86,10 +86,10 @@ p{margin:0}
 /* Hero slider (glass + video) */
 .hero{position:relative;min-height:max(680px,100svh);overflow:hidden;background:var(--navy-900);color:#fff}
 .slides{position:absolute;inset:0}
-.slide{position:absolute;inset:0;display:flex;align-items:center;opacity:0;visibility:hidden;transition:opacity 1.2s ease,visibility 0s 1.2s}
-.slide.active{opacity:1;visibility:visible;transition:opacity 1.2s ease}
+.slide{position:absolute;inset:0;display:flex;align-items:center;opacity:0;visibility:hidden;transition:opacity .9s cubic-bezier(.4,0,.2,1),visibility 0s .9s}
+.slide.active{opacity:1;visibility:visible;transition:opacity .9s cubic-bezier(.4,0,.2,1);z-index:1}
 .scene,.bg-video,.shade{position:absolute;inset:0}
-.bg-video{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
+.bg-video{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease}
 .bg-video.ready{opacity:1}
 .scene{overflow:hidden;background:radial-gradient(900px 600px at 78% 35%,rgba(77,128,201,.35),transparent 60%),radial-gradient(800px 500px at 15% 90%,rgba(33,64,106,.9),transparent 60%),linear-gradient(160deg,#0b1d36,#060f1f 60%)}
 .scene.s2{background:radial-gradient(900px 600px at 75% 30%,rgba(255,212,59,.18),transparent 60%),radial-gradient(800px 500px at 10% 90%,rgba(33,64,106,.9),transparent 60%),linear-gradient(160deg,#0f2036,#060f1f 60%)}
@@ -1280,13 +1280,14 @@ document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
 /* Hero slider: each slide plays its video once from the start, then crossfades to the next */
 (function(){
   const hero = document.querySelector('.hero'), slides = [...hero.querySelectorAll('.slide')], dots = [...hero.querySelectorAll('.dot')];
-  const N = slides.length, FALLBACK = 8000, FADE = 1200;
+  const N = slides.length, FALLBACK = 8000, FADE = 900, LEAD = 0.9;  // start crossfading 0.9s before a clip ends
   let i = -1, timer, guard;
   const vid = sl => sl.querySelector('video');
   slides.forEach(sl => { const v = vid(sl); if (!v) return;
     v.addEventListener('loadeddata', () => { v.classList.add('ready'); sl.classList.add('has-video'); });
     v.querySelector('source').addEventListener('error', () => v.remove());
-    v.addEventListener('ended', () => { if (slides[i] === sl) next(); });
+    v.addEventListener('timeupdate', () => { if (slides[i] === sl && !sl.dataset.leaving && isFinite(v.duration) && v.currentTime >= v.duration - LEAD) { sl.dataset.leaving = '1'; next(); } });
+    v.addEventListener('ended', () => { if (slides[i] === sl && !sl.dataset.leaving) next(); });
   });
   function warm(sl){ const v = vid(sl); if (v && v.preload === 'none') { v.preload = 'auto'; v.load(); } }
   function setBar(ms){
@@ -1300,14 +1301,14 @@ document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
     const prev = i >= 0 ? slides[i] : null;
     i = (n + N) % N;
     const sl = slides[i], v = vid(sl);
-    if (prev && prev !== sl) { prev.classList.remove('active'); const pv = vid(prev); if (pv) setTimeout(() => { if (!prev.classList.contains('active')) pv.pause(); }, FADE); }
-    sl.classList.add('active');
-    warm(slides[(i + 1) % N]);                         // load the next video before it's needed
+    if (prev && prev !== sl) { prev.classList.remove('active'); const pv = vid(prev); if (pv) setTimeout(() => { if (!prev.classList.contains('active')) pv.pause(); }, FADE + 100); }
+    sl.classList.add('active'); delete sl.dataset.leaving;
+    slides.forEach(warm);                               // all hero clips loaded up front, so the next one is always ready                         // load the next video before it's needed
     if (reduce) { setBar(FALLBACK); return; }
     if (v) {
       warm(sl);
       const start = () => {
-        const ms = isFinite(v.duration) && v.duration > 0 ? v.duration * 1000 : FALLBACK;
+        const ms = isFinite(v.duration) && v.duration > 0 ? (v.duration - LEAD) * 1000 : FALLBACK;
         setBar(ms);
         clearTimeout(guard); guard = setTimeout(next, ms + 1500);   // safety net if 'ended' never fires
       };
