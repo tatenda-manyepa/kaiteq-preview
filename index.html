@@ -549,6 +549,61 @@ footer{background:var(--navy-700)}
 @media(max-width:900px){.mobile-product{display:inline-block;margin-left:auto;margin-right:6px}.nav-links.open .nav-product{display:none}}
 @media(max-width:360px){.nav-product.mobile-product{font-size:15px;padding:4px 10px}}
 @media(max-width:900px){.nav-links.open{background:#fff!important;backdrop-filter:none;box-shadow:0 30px 60px -25px rgba(13,33,61,.35)}}
+
+/* ===== Meet the crew ===== */
+.crew{background:#fff}
+.crew-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.crew-card{background:#f7f8fb;border:1px solid rgba(13,33,61,.07);border-radius:24px;overflow:hidden;transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s}
+.crew-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -35px rgba(13,33,61,.45)}
+.crew-photo{aspect-ratio:4/3;overflow:hidden;background:var(--navy-700)}
+.crew-photo img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.crew-card:hover .crew-photo img{transform:scale(1.05)}
+.crew-body{padding:20px 22px 24px}
+.crew-trade{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9a7400}
+.crew-body h3{font-family:var(--display);font-size:26px;margin:4px 0 6px;color:var(--navy-700)}
+.crew-body p{color:#5a6b82;font-size:15px}
+.crew-foot{margin-top:40px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:24px 28px;border-radius:22px;background:#f3f5f8}
+.crew-foot p{color:#33465f}.crew-foot b{color:var(--navy-700)}
+.crew-note{margin-top:14px;font-size:12.5px;color:#8a97a8;text-align:center}
+@media(max-width:980px){.crew-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .crew-grid{grid-auto-flow:column;grid-auto-columns:80%;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:4px 20px 14px;margin:0 -20px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .crew-grid::-webkit-scrollbar{display:none}
+  .crew-card{scroll-snap-align:center}
+  .crew-card.reveal{opacity:1;transform:none}
+}
+
+/* ===== Crew marquee ===== */
+.marquee-rows{display:grid;gap:18px;padding:6px 0 10px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.mrow{display:flex;width:max-content;animation:mq 46s linear infinite}
+.mrow.rev{animation-direction:reverse;animation-duration:54s}
+.marquee-rows:hover .mrow{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mtrack{display:flex;gap:18px;padding-right:18px}
+.pill{flex:none;display:flex;align-items:center;gap:22px;border-radius:999px;background:#f7f8fb;border:1px solid rgba(13,33,61,.08);box-shadow:0 14px 30px -24px rgba(13,33,61,.5);font:inherit;color:inherit;text-align:left}
+.crew-pill{padding:10px 10px 10px 32px;min-width:340px;justify-content:space-between;cursor:pointer;transition:transform .3s,box-shadow .3s,background .3s}
+.crew-pill:hover,.crew-pill:focus-visible{transform:translateY(-3px);background:#fff;box-shadow:0 24px 40px -26px rgba(13,33,61,.55)}
+.crew-pill img{width:76px;height:76px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px #fff,0 0 0 4px rgba(232,183,0,.6)}
+.crew-pill b{display:block;font-family:var(--display);font-size:28px;letter-spacing:-.02em;color:var(--navy-700);line-height:1.1}
+.crew-pill small{font-size:13.5px;color:#5a6b82}
+.act-pill{padding:8px 26px 8px 8px;background:var(--navy-700);border-color:transparent;color:#fff;min-width:300px}
+.act-pill img{width:56px;height:56px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(255,212,59,.7)}
+.act-pill small{display:block;font-size:12px;color:#9fb0c8;letter-spacing:.02em}
+.act-pill b{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:700}
+.act-pill em{display:block;font-style:normal;font-size:13px;color:var(--gold)}
+.tick{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--gold);color:var(--navy-800);font-style:normal;font-size:11px;font-weight:900}
+.crew .crew-foot{margin-top:46px}
+.crew-modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;background:rgba(6,15,31,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.crew-modal[hidden]{display:none}
+.cm-card{position:relative;width:min(560px,100%);border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(0,0,0,.6);animation:cmIn .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes cmIn{from{opacity:0;transform:translateY(16px) scale(.98)}}
+.cm-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.cm-body{padding:22px 26px 26px}
+.cm-body h3{font-family:var(--display);font-size:32px;color:var(--navy-700);margin:4px 0 6px}
+.cm-body p{color:#5a6b82;margin-bottom:18px}
+.cm-close{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.9);font-size:22px;cursor:pointer;color:var(--navy-700)}
+@media(max-width:600px){.crew-pill{min-width:270px;padding-left:22px}.crew-pill img{width:62px;height:62px}.crew-pill b{font-size:22px}.act-pill{min-width:260px}.mrow{animation-duration:36s}.mrow.rev{animation-duration:42s}}
+@media(prefers-reduced-motion:reduce){.mrow{animation:none;flex-wrap:wrap;width:auto;justify-content:center}.mtrack[aria-hidden]{display:none}.mtrack{flex-wrap:wrap;justify-content:center}}
 </style>
 </head>
 <body>
@@ -560,6 +615,7 @@ footer{background:var(--navy-700)}
     <nav class="nav-links" id="navLinks" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#jobdesk" class="nav-product" aria-label="JobDesk">job<b>desk</b></a>
+      <a href="#crew">Who it's for</a>
       <a href="#ai-team">AI team</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
@@ -807,6 +863,36 @@ footer{background:var(--navy-700)}
       </div>
     </div>
     <p class="app-note reveal">Example data shown.</p>
+  </div>
+</section>
+
+<!-- MEET THE CREW -->
+<section class="section crew" id="crew">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Meet the crew</span>
+      <h2>Built for people who book their time.</h2>
+      <p class="lead">Plumbers, sparkies, decorators, groomers, hairdressers and cleaners. Different trades, same problem: too much admin, not enough hours. Here's JobDesk quietly working for all of them.</p>
+    </div>
+  </div>
+  <div class="marquee-rows" aria-label="The JobDesk crew and what JobDesk is doing for them">
+    <div class="mrow"><div class="mtrack"><button type="button" class="pill crew-pill" data-crew="dave" data-name="Dave" data-trade="Plumber &amp; heating engineer" data-line="Books boiler services while he's still under the sink."><span class="pill-txt"><b>Dave</b><small>Plumber &amp; heating engineer</small></span><img src="assets/face-dave.jpg" alt="" loading="lazy"></button><button type="button" class="pill crew-pill" data-crew="kemi" data-name="Kemi" data-trade="Mobile dog groomer" data-line="Takes a deposit at booking, so no-shows don't cost her."><span class="pill-txt"><b>Kemi</b><small>Mobile dog groomer</small></span><img src="assets/face-kemi.jpg" alt="" loading="lazy"></button><button type="button" class="pill crew-pill" data-crew="priya" data-name="Priya" data-trade="Electrician" data-line="Sends quotes from a customer's photo the same day."><span class="pill-txt"><b>Priya</b><small>Electrician</small></span><img src="assets/face-priya.jpg" alt="" loading="lazy"></button><button type="button" class="pill crew-pill" data-crew="callum" data-name="Callum" data-trade="Decorator &amp; handyman" data-line="Fills quiet weeks with repeat customers who are due."><span class="pill-txt"><b>Callum</b><small>Decorator &amp; handyman</small></span><img src="assets/face-callum.jpg" alt="" loading="lazy"></button><button type="button" class="pill crew-pill" data-crew="jade" data-name="Jade" data-trade="Mobile hairdresser" data-line="Reminders mean clients are ready when she arrives."><span class="pill-txt"><b>Jade</b><small>Mobile hairdresser</small></span><img src="assets/face-jade.jpg" alt="" loading="lazy"></button><button type="button" class="pill crew-pill" data-crew="bev" data-name="Bev" data-trade="Cleaning business owner" data-line="Regular cleans rebooked and paid without a single chase."><span class="pill-txt"><b>Bev</b><small>Cleaning business owner</small></span><img src="assets/face-bev.jpg" alt="" loading="lazy"></button></div><div class="mtrack" aria-hidden="true"><button type="button" tabindex="-1" class="pill crew-pill" data-crew="dave" data-name="Dave" data-trade="Plumber &amp; heating engineer" data-line="Books boiler services while he's still under the sink."><span class="pill-txt"><b>Dave</b><small>Plumber &amp; heating engineer</small></span><img src="assets/face-dave.jpg" alt="" loading="lazy"></button><button type="button" tabindex="-1" class="pill crew-pill" data-crew="kemi" data-name="Kemi" data-trade="Mobile dog groomer" data-line="Takes a deposit at booking, so no-shows don't cost her."><span class="pill-txt"><b>Kemi</b><small>Mobile dog groomer</small></span><img src="assets/face-kemi.jpg" alt="" loading="lazy"></button><button type="button" tabindex="-1" class="pill crew-pill" data-crew="priya" data-name="Priya" data-trade="Electrician" data-line="Sends quotes from a customer's photo the same day."><span class="pill-txt"><b>Priya</b><small>Electrician</small></span><img src="assets/face-priya.jpg" alt="" loading="lazy"></button><button type="button" tabindex="-1" class="pill crew-pill" data-crew="callum" data-name="Callum" data-trade="Decorator &amp; handyman" data-line="Fills quiet weeks with repeat customers who are due."><span class="pill-txt"><b>Callum</b><small>Decorator &amp; handyman</small></span><img src="assets/face-callum.jpg" alt="" loading="lazy"></button><button type="button" tabindex="-1" class="pill crew-pill" data-crew="jade" data-name="Jade" data-trade="Mobile hairdresser" data-line="Reminders mean clients are ready when she arrives."><span class="pill-txt"><b>Jade</b><small>Mobile hairdresser</small></span><img src="assets/face-jade.jpg" alt="" loading="lazy"></button><button type="button" tabindex="-1" class="pill crew-pill" data-crew="bev" data-name="Bev" data-trade="Cleaning business owner" data-line="Regular cleans rebooked and paid without a single chase."><span class="pill-txt"><b>Bev</b><small>Cleaning business owner</small></span><img src="assets/face-bev.jpg" alt="" loading="lazy"></button></div></div>
+    <div class="mrow rev"><div class="mtrack"><div class="pill act-pill"><img src="assets/face-dave.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Dave</small><b><i class="tick">✓</i>Boiler service booked</b><em>Thu 10:00</em></span></div><div class="pill act-pill"><img src="assets/face-frank.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Frank · growth guy</small><b><i class="tick">✓</i>14 customers due a service</b><em>Offer Tuesday slots?</em></span></div><div class="pill act-pill"><img src="assets/face-kemi.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Kemi</small><b><i class="tick">✓</i>£45 deposit paid</b><em>Sat 9:30</em></span></div><div class="pill act-pill"><img src="assets/face-priya.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Priya</small><b><i class="tick">✓</i>Quote sent from photo</b><em>£320 · awaiting OK</em></span></div><div class="pill act-pill"><img src="assets/face-penny.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Penny · money whizz</small><b><i class="tick">✓</i>£640 owed</b><em>Polite reminders sent</em></span></div><div class="pill act-pill"><img src="assets/face-callum.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Callum</small><b><i class="tick">✓</i>Repeat customer rebooked</b><em>Hallway repaint</em></span></div><div class="pill act-pill"><img src="assets/face-jade.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Jade</small><b><i class="tick">✓</i>Reminder sent</b><em>Client ready for 6pm</em></span></div><div class="pill act-pill"><img src="assets/face-bev.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Bev</small><b><i class="tick">✓</i>Weekly clean paid</b><em>£60 · no chasing</em></span></div></div><div class="mtrack" aria-hidden="true"><div class="pill act-pill"><img src="assets/face-dave.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Dave</small><b><i class="tick">✓</i>Boiler service booked</b><em>Thu 10:00</em></span></div><div class="pill act-pill"><img src="assets/face-frank.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Frank · growth guy</small><b><i class="tick">✓</i>14 customers due a service</b><em>Offer Tuesday slots?</em></span></div><div class="pill act-pill"><img src="assets/face-kemi.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Kemi</small><b><i class="tick">✓</i>£45 deposit paid</b><em>Sat 9:30</em></span></div><div class="pill act-pill"><img src="assets/face-priya.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Priya</small><b><i class="tick">✓</i>Quote sent from photo</b><em>£320 · awaiting OK</em></span></div><div class="pill act-pill"><img src="assets/face-penny.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Penny · money whizz</small><b><i class="tick">✓</i>£640 owed</b><em>Polite reminders sent</em></span></div><div class="pill act-pill"><img src="assets/face-callum.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Callum</small><b><i class="tick">✓</i>Repeat customer rebooked</b><em>Hallway repaint</em></span></div><div class="pill act-pill"><img src="assets/face-jade.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Jade</small><b><i class="tick">✓</i>Reminder sent</b><em>Client ready for 6pm</em></span></div><div class="pill act-pill"><img src="assets/face-bev.jpg" alt="" loading="lazy"><span class="pill-txt"><small>Bev</small><b><i class="tick">✓</i>Weekly clean paid</b><em>£60 · no chasing</em></span></div></div></div>
+  </div>
+  <div class="wrap">
+    <div class="crew-foot reveal">
+      <p><b>Don't see your trade?</b> If you book jobs or appointments, JobDesk works for you.</p>
+      <a href="#contact" class="btn btn-navy">Tell us what you do <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+    <p class="crew-note">Tap a crew member to meet them. The JobDesk crew are illustrative characters.</p>
+  </div>
+  <div class="crew-modal" id="crewModal" role="dialog" aria-modal="true" aria-labelledby="cmName" hidden>
+    <div class="cm-card">
+      <button type="button" class="cm-close" aria-label="Close">×</button>
+      <img id="cmImg" alt="">
+      <div class="cm-body"><span class="crew-trade" id="cmTrade"></span><h3 id="cmName"></h3><p id="cmLine"></p>
+      <a href="#contact" class="btn btn-gold" id="cmCta">Get JobDesk for my business <span class="arrow" aria-hidden="true">→</span></a></div>
+    </div>
   </div>
 </section>
 
@@ -1132,6 +1218,21 @@ document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
   addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open')) { toggle(false); pill.focus(); } });
   body.addEventListener('click', e => { if (e.target.matches('[data-close]')) toggle(false); });
   form.addEventListener('submit', e => { e.preventDefault(); const v = input.value.trim(); if (!v) return; input.value=''; ask(v); });
+})();
+
+
+/* Crew pills open a profile card */
+(function(){
+  const m=document.getElementById('crewModal'); if(!m) return; let last;
+  const close=()=>{ m.hidden=true; document.body.style.overflow=''; last&&last.focus(); };
+  document.querySelectorAll('.crew-pill').forEach(b=>b.addEventListener('click',()=>{
+    last=b; document.getElementById('cmImg').src='assets/crew-'+b.dataset.crew+'.jpg'; document.getElementById('cmImg').alt=b.dataset.name;
+    document.getElementById('cmName').textContent=b.dataset.name; document.getElementById('cmTrade').innerHTML=b.dataset.trade; document.getElementById('cmLine').textContent=b.dataset.line;
+    m.hidden=false; document.body.style.overflow='hidden'; m.querySelector('.cm-close').focus();
+  }));
+  m.addEventListener('click',e=>{ if(e.target===m||e.target.closest('.cm-close')) close(); });
+  document.getElementById('cmCta').addEventListener('click',close);
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&!m.hidden) close(); });
 })();
 
 /* Hero slider with background videos */
